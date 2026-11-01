@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -24,75 +25,61 @@
   html { scroll-behavior: smooth; }
   body {
     font-family: var(--serif);
-    background: #0d0a07;
+    background:
+      radial-gradient(ellipse 80% 45% at 50% 0%, #201710 0%, #120d08 60%, #0d0a07 100%) fixed;
     color: var(--ink);
     line-height: 1.65;
     font-size: 17px;
+    min-height: 100vh;
   }
   ::selection { background: #6b2320; color: #e8dcc0; }
 
-  /* ---------- cover ---------- */
-  .cover {
-    min-height: 100vh;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
+  /* ---------- chapter bar ---------- */
+  .chapters {
+    position: sticky; top: 0; z-index: 20;
+    background: linear-gradient(180deg, rgba(13,10,7,.97), rgba(13,10,7,.88));
+    border-bottom: 1px solid rgba(166, 124, 61, .55);
+    box-shadow: 0 6px 24px rgba(0,0,0,.55);
+    padding: 12px 16px 10px;
     text-align: center;
-    padding: 48px 24px;
-    position: relative;
-    background:
-      radial-gradient(ellipse 70% 50% at 50% 40%, #241a11 0%, #17110c 55%, #0d0a07 100%);
   }
-  .cover::before, .cover::after {
-    content: "";
-    position: absolute; inset: 22px;
-    border: 1px solid rgba(166, 124, 61, .85);
-    pointer-events: none;
-  }
-  .cover::after {
-    inset: 28px;
-    border: 1px solid rgba(166, 124, 61, .35);
-  }
-  .corner { position: absolute; width: 11px; height: 11px; color: var(--gold-bright); }
-  .corner svg { display: block; }
-  .cover .kicker {
-    letter-spacing: .45em; text-transform: uppercase;
-    font-size: .8rem; color: var(--gold-bright);
-    margin-bottom: 34px; font-family: var(--display);
-  }
-  .cover h1 {
+  .chapters .brand {
     font-family: var(--display);
-    font-weight: 900;
-    font-size: clamp(2.4rem, 7vw, 4.6rem);
-    line-height: 1.15;
+    letter-spacing: .32em; text-transform: uppercase;
+    font-size: .72rem; color: var(--gold-bright);
+    margin-bottom: 10px; white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis;
+  }
+  .tabs {
+    display: flex; justify-content: center; flex-wrap: nowrap;
+    gap: 4px; overflow-x: auto; scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    font-family: var(--display);
+    font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
+    color: #8a7452; background: none; border: 1px solid transparent;
+    padding: 7px 13px; cursor: pointer; white-space: nowrap;
+    transition: color .2s, border-color .2s, background .2s;
+    border-radius: 2px;
+  }
+  .tab:hover { color: var(--bone); border-color: rgba(166,124,61,.4); }
+  .tab.active {
     color: var(--bone);
-    text-shadow: 0 2px 30px rgba(0,0,0,.7);
-    letter-spacing: .02em;
+    border-color: rgba(166,124,61,.75);
+    background: rgba(166,124,61,.12);
   }
-  .ornament { margin: 34px auto; width: 300px; max-width: 80vw; }
-  .cover .quote {
-    font-style: italic; font-size: 1.15rem;
-    color: #b9a27a; max-width: 32ch; line-height: 1.9;
-  }
-  .cover .subquote {
-    margin-top: 14px; letter-spacing: .3em; text-transform: uppercase;
-    font-size: .62rem; color: #8a7452;
-  }
-  .cover .foot {
-    position: absolute; bottom: 58px; left: 0; right: 0;
-    text-align: center;
-  }
-  .cover .foot .line1 {
-    font-family: var(--display);
-    letter-spacing: .35em; text-transform: uppercase;
-    font-size: .8rem; color: var(--gold);
-  }
-  .cover .foot .line2 {
-    margin-top: 10px; letter-spacing: .3em; text-transform: uppercase;
-    font-size: .58rem; color: #8a7452;
-  }
+  .tab.soon { color: #5c4a30; }
 
-  /* ---------- content sheets ---------- */
-  main { max-width: 860px; margin: 0 auto; padding: 24px 20px 80px; }
+  /* ---------- pages ---------- */
+  main { max-width: 860px; margin: 0 auto; padding: 40px 20px 30px; }
+  .page { display: none; }
+  .page.active { display: block; animation: pagein .5s ease both; }
+  @keyframes pagein {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: none; }
+  }
   .sheet {
     background:
       radial-gradient(ellipse 120% 20% at 50% 0%, rgba(255,250,235,.55), transparent 60%),
@@ -100,7 +87,7 @@
     border: 1px solid var(--parch-edge);
     box-shadow: 0 14px 40px rgba(0,0,0,.55), inset 0 0 60px rgba(120,95,55,.14);
     padding: clamp(28px, 5vw, 56px) clamp(22px, 5.5vw, 64px);
-    margin: -56px auto 64px;
+    margin: 0 auto 40px;
     position: relative;
   }
   .sheet::before {
@@ -115,6 +102,16 @@
     letter-spacing: .4em; text-transform: uppercase;
     font-size: .66rem; color: var(--gold);
     margin-bottom: 10px;
+  }
+  h1 {
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(2.1rem, 5.5vw, 3.4rem);
+    line-height: 1.15;
+    color: #3a2416;
+    text-align: center;
+    letter-spacing: .02em;
+    margin-bottom: 8px;
   }
   h2 {
     font-family: var(--display);
@@ -131,7 +128,7 @@
     font-size: .66rem; color: #8a7a5f;
     margin-bottom: 6px;
   }
-  h2 + .rule, .subtitle + .rule { margin-bottom: 26px; }
+  h2 + .rule, .subtitle + .rule, h1 + .rule { margin-bottom: 26px; }
   .rule {
     display: flex; align-items: center; gap: 10px;
     margin: 18px 0 26px; color: var(--gold);
@@ -161,7 +158,6 @@
   }
   p { margin-bottom: 14px; }
   .sheet a { color: #6b4a1d; }
-  em, i { color: inherit; }
   .reference {
     font-style: italic; color: var(--ink-faint);
     font-size: .9em; letter-spacing: .04em;
@@ -182,6 +178,10 @@
     color: #5c3a1e; font-size: 1.08rem; line-height: 1.9;
   }
   .primer-frame .prayer::before, .primer-frame .prayer::after { content: "—"; color: var(--gold); margin: 0 10px; }
+  .opening-quote {
+    text-align: center; font-style: italic;
+    color: #5c3a1e; font-size: 1.1rem; margin-bottom: 4px;
+  }
 
   /* emphasis table */
   .emphasis { margin-top: 10px; }
@@ -199,11 +199,11 @@
   .pips .off { color: var(--gold-dim); opacity: .55; }
   .emphasis .desc { font-style: italic; color: var(--ink-faint); font-size: .95em; }
 
-  /* lead-in paragraphs (how to play) */
+  /* lead-in paragraphs */
   .lead p { margin-bottom: 16px; }
   .lead strong { color: #3a2416; font-family: var(--display); font-weight: 700; font-size: 1.02em; letter-spacing: .02em; }
 
-  /* ancestries two-col */
+  /* ancestries */
   .ancestries { columns: 2; column-gap: 44px; column-rule: 1px solid rgba(166, 124, 61, .3); }
   .ancestry { break-inside: avoid; margin-bottom: 6px; }
   @media (max-width: 640px) { .ancestries { columns: 1; } }
@@ -218,171 +218,285 @@
   }
   .divider::after { transform: scaleX(-1); }
 
+  /* ---------- page turner (bottom) ---------- */
+  .turner {
+    position: sticky; bottom: 0; z-index: 20;
+    display: flex; align-items: center; justify-content: center; gap: 22px;
+    background: linear-gradient(0deg, rgba(13,10,7,.97) 30%, rgba(13,10,7,.75));
+    border-top: 1px solid rgba(166, 124, 61, .45);
+    padding: 10px 14px;
+    user-select: none;
+  }
+  .turner button {
+    background: none; border: 1px solid rgba(166,124,61,.5); border-radius: 2px;
+    color: var(--gold-bright); font-family: var(--display);
+    font-size: .8rem; letter-spacing: .2em; text-transform: uppercase;
+    padding: 8px 16px; cursor: pointer;
+    transition: color .2s, border-color .2s, background .2s;
+  }
+  .turner button:hover:not(:disabled) {
+    color: var(--bone); border-color: rgba(166,124,61,.85);
+    background: rgba(166,124,61,.12);
+  }
+  .turner button:disabled { opacity: .25; cursor: default; }
+  .dots { display: flex; gap: 9px; align-items: center; }
+  .dot {
+    width: 7px; height: 7px; transform: rotate(45deg);
+    background: rgba(166,124,61,.3); cursor: pointer;
+    transition: background .2s, transform .2s;
+  }
+  .dot.active { background: var(--gold-bright); transform: rotate(45deg) scale(1.25); }
+  .hint {
+    position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);
+  }
+
   footer {
-    text-align: center; padding: 30px 0 50px;
+    text-align: center; padding: 24px 0 18px;
     color: #8a7452; font-size: .8rem; letter-spacing: .25em; text-transform: uppercase;
   }
   footer .small { display: block; margin-top: 8px; font-size: .62rem; color: #6a5a42; }
+
+  @media (max-width: 560px) {
+    .chapters .brand { letter-spacing: .22em; }
+    .turner { gap: 12px; }
+    .turner button { padding: 8px 12px; font-size: .7rem; }
+  }
 </style>
 </head>
 <body>
 
-<!-- ======================= COVER ======================= -->
-<section class="cover">
-  <span class="corner" style="top:16px;left:16px"><svg width="11" height="11" viewBox="0 0 11 11"><path d="M5.5 0 L11 5.5 L5.5 11 L0 5.5 Z" fill="currentColor"/></svg></span>
-  <span class="corner" style="top:16px;right:16px"><svg width="11" height="11" viewBox="0 0 11 11"><path d="M5.5 0 L11 5.5 L5.5 11 L0 5.5 Z" fill="currentColor"/></svg></span>
-  <span class="corner" style="bottom:16px;left:16px"><svg width="11" height="11" viewBox="0 0 11 11"><path d="M5.5 0 L11 5.5 L5.5 11 L0 5.5 Z" fill="currentColor"/></svg></span>
-  <span class="corner" style="bottom:16px;right:16px"><svg width="11" height="11" viewBox="0 0 11 11"><path d="M5.5 0 L11 5.5 L5.5 11 L0 5.5 Z" fill="currentColor"/></svg></span>
-
-  <p class="kicker">A Dark Fantasy Campaign</p>
-  <h1>Deliver Us<br/>from Evil</h1>
-
-  <svg class="ornament" viewBox="0 0 300 40" fill="none" stroke="#a67c3d" stroke-width="1">
-    <line x1="0" y1="20" x2="118" y2="20"/>
-    <line x1="182" y1="20" x2="300" y2="20"/>
-    <circle cx="150" cy="20" r="8"/>
-    <circle cx="150" cy="20" r="2.6" fill="#a67c3d"/>
-    <g stroke-width="1.1">
-      <line x1="150" y1="6" x2="150" y2="1"/><line x1="150" y1="34" x2="150" y2="39"/>
-      <line x1="136" y1="20" x2="131" y2="20"/><line x1="164" y1="20" x2="169" y2="20"/>
-      <line x1="140" y1="10" x2="136.5" y2="6.5"/><line x1="160" y1="10" x2="163.5" y2="6.5"/>
-      <line x1="140" y1="30" x2="136.5" y2="33.5"/><line x1="160" y1="30" x2="163.5" y2="33.5"/>
-    </g>
-    <path d="M124 16 L128 20 L124 24 L120 20 Z" fill="#a67c3d" stroke="none"/>
-    <path d="M176 16 L180 20 L176 24 L172 20 Z" fill="#a67c3d" stroke="none"/>
-  </svg>
-
-  <p class="quote">“Oh Lady Lucienne, deliver us from evil.”</p>
-  <p class="subquote">Keep with us the one true light</p>
-
-  <div class="foot">
-    <p class="line2">A Campaign Pitch for Players</p>
-  </div>
-</section>
+<!-- ============ CHAPTER BAR ============ -->
+<nav class="chapters" id="chapters">
+  <p class="brand">Deliver Us from Evil · A Dark Fantasy Campaign</p>
+  <div class="tabs" id="tabs"></div>
+</nav>
 
 <main>
 
-  <!-- ======================= PRIMER ======================= -->
-  <article class="sheet" id="primer">
-    <p class="eyebrow">Primer</p>
-    <h2>Deliver Us from Evil</h2>
-    <p class="subtitle">A Dark Fantasy Campaign</p>
-    <div class="rule"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 0 L10 5 L5 10 L0 5 Z" fill="currentColor"/></svg></div>
+  <!-- ============ PAGE: PRIMER ============ -->
+  <section class="page active" id="primer" data-title="Primer">
+    <article class="sheet">
+      <p class="eyebrow">A Dark Fantasy Campaign</p>
+      <h1>Deliver Us<br/>from Evil</h1>
+      <div class="rule"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 0 L10 5 L5 10 L0 5 Z" fill="currentColor"/></svg></div>
 
-    <div class="primer-frame">
-      <p>Before the light, there was <strong>Silence</strong>, the age of darkness and despair. A savage age, marked by chaos and disorder, and civilization lay barren and bare. False gods reigned, we sacrificed our blood and souls to them, and were left in dirt and mud, no light to warm our hearts.</p>
-      <p>A light whispered in the dark and silent. Yet so quiet, our torn hearts could not hear, but for one that wasn't broken.</p>
-      <p>From the dark rose our savior, our Lady Lucienne, herald of Light, and turned whispers into shouts and cries for us to listen. She broke the silence and unveiled the false gods' lies. Their dark reign should end, and in their place the One True Light would shine.</p>
-      <p>And thus dawned the age of light. Where there was dirt now orchards flower, cities sprawl, and where there was chaos, our Empire rose to protect what we have nurtured.</p>
-      <p>Still, the dark prevails. Through witches' whispers, the false gods plot and scheme to douse the light that blinds them. Goblins cross the marches as their faithful servants to announce our desolation.</p>
-      <p class="prayer">Oh Lady Lucienne, deliver us from evil. Keep with us the one true light, so we may illuminate the dark that lingers.</p>
-    </div>
-  </article>
-
-  <!-- ======================= THE CAMPAIGN ======================= -->
-  <article class="sheet" id="campaign">
-    <h2>The Campaign</h2>
-    <div class="rule"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 0 L10 5 L5 10 L0 5 Z" fill="currentColor"/></svg></div>
-
-    <p>The campaign world is a high medieval gothic fantasy setting.</p>
-    <p>Within the vast and powerful Valoran Empire, your journeys start in Hartmoor, a small barony within the Duchy of Arvannes, not too far from the border provinces of the Empire. Though not yet directly threatened by Goblin Attacks, the looming threat of war and violence sows unease across the people of the duchy, and Duchess <em>Éloane</em> of Arvannes must strive for Empire's support within the High Council of Aubescourt.</p>
-    <p>Meanwhile, another threat appears to be emerging in the Barony of Hartmoor: rumor speaks of a Covenant cult operating in the region, allegedly responsible for recent heresies and, quite possibly, for a string of murders that were recently committed.</p>
-    <p>This is your home, and your home is threatened by forces beyond your understanding. With the Goblin armies crossing the marches and false gods' servants looming over your community, the burden falls to you to stand fast and hold the line.</p>
-  </article>
-
-  <!-- ======================= POWERS ======================= -->
-  <article class="sheet" id="powers">
-    <h2>The Powers That Be</h2>
-    <div class="rule"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 0 L10 5 L5 10 L0 5 Z" fill="currentColor"/></svg></div>
-
-    <h3>The Valoran Empire</h3>
-    <p>Half the known continent, one crown. The Valoran Empire is the world's great success story: roads that run safe, walled towns, guilds and granaries, a fleet that rules its coastline. Its signature is <em>order</em> — the pax imperialis, a peace so real its people have forgotten it was ever otherwise. The imperial crown sits atop a feudal ladder of kings, dukes, and barons, all watched over by the great institutions of the High Council. Beyond the borders, the world is wilder: kingdoms where brigands roam and goblins still raid, and where the Empire's peace ends, its self-image begins.</p>
-
-    <h3>The Goblin Tribes</h3>
-    <p>Not bandits, not beasts — a people. The goblin tribes have sprawled across the Weald, an unmapped region beyond the marches, since before the Empire, kept survivable for centuries only by their endless feuds with one another. Now the tribes are uniting under a shaman-prophet's banner, settling the marches, and marching to war. Servants of the old gods, they do not come to conquer. They come to end the world of man.</p>
-
-    <h3>The Dawnward</h3>
-    <p>The Church of the One True Light, founded by the Lady Lucienne herself three centuries ago. It is the soul of the Empire: crowns the emperor, blesses the harvest, tends the poor through its Almoners — and hunts heresy through its Inquisition, for within the Empire the old faith is not only sin, but crime. Its priests carry the Divine, the only sanctioned magic in the world of man. For most folk, the Dawnward <em>is</em> goodness — and most of its faithful genuinely are.</p>
-
-    <h3>The Covenant</h3>
-    <p>The old faith — the pantheon that reigned during "the Silence". Within the Empire, its practice is outlawed and its name is a curse: witchcraft, devil worship, blood sacrifice. Yet, the old faith has survived: Household rites, oaths, seasonal feasts, and, in some communities, small covenants and sects are secretly practising the old rites where the Dawnward's eye can't reach.</p>
-  </article>
-
-  <!-- ======================= HOW TO PLAY + EMPHASIS ======================= -->
-  <article class="sheet" id="howto">
-    <h2>How to Play This World</h2>
-    <div class="rule"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 0 L10 5 L5 10 L0 5 Z" fill="currentColor"/></svg></div>
-
-    <div class="lead">
-      <p><strong>Faith is everywhere.</strong> Even the skeptic swears by the Dawnward when the wolves are at the door. Choose your relationship to it: devout, dutiful, doubting, or daring — but have one.</p>
-      <p><strong>Magic is not casual.</strong> Miracles belong to the Church; everything else is a crime or a secret. Access is limited from the get go, and more often than not, magic comes as a threat rather than a savior.</p>
-      <p><strong>The world is small and dark.</strong> It's as much grimdark as dark fantasy. It's dangerous and unforgiving; behind each smile might loom a hidden knife.</p>
-    </div>
-
-    <div class="divider"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 0 L12 6 L6 12 L0 6 Z" fill="currentColor"/></svg></div>
-
-    <h2 style="margin-top:0">Emphasis</h2>
-    <div class="rule"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 0 L10 5 L5 10 L0 5 Z" fill="currentColor"/></svg></div>
-
-    <div class="emphasis">
-      <div class="row"><span class="name">Mystery &amp; Investigation</span><span class="pips">●●●<span class="off">●</span></span><span class="desc">Clues, interrogations, archives, secrets that have been waiting a long time</span></div>
-      <div class="row"><span class="name">Roleplay &amp; Drama</span><span class="pips">●●●●</span><span class="desc">Belief under pressure: what your characters trust, and what it takes to break that trust</span></div>
-      <div class="row"><span class="name">Combat</span><span class="pips">●●●<span class="off">●</span></span><span class="desc">Set-piece battles and desperate last stands, earned by the story</span></div>
-      <div class="row"><span class="name">Exploration</span><span class="pips">●●<span class="off">●●</span></span><span class="desc">Ruins, old roads, the far side of the tree line — journeys that carry weight</span></div>
-      <div class="row"><span class="name">Politics &amp; Intrigue</span><span class="pips">●●<span class="off">●●</span></span><span class="desc">Thrones and councils in the background, close enough to touch if you dare</span></div>
-    </div>
-  </article>
-
-  <!-- ======================= PLAYER OPTIONS: ANCESTRIES ======================= -->
-  <article class="sheet" id="ancestries">
-    <h2>Player Options</h2>
-    <div class="rule"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 0 L10 5 L5 10 L0 5 Z" fill="currentColor"/></svg></div>
-
-    <h4 style="margin-top:0">Ancestries</h4>
-    <p>The population of the realms of this world is mostly human. Most folk in the countryside live and die never meeting anyone who is not. Those of other blood are few, scattered, and never quite trusted. The following peoples are open to players.</p>
-
-    <div class="ancestries">
-      <div class="ancestry">
-        <h4>Human</h4>
-        <p>Humans are the people of the world — its villages, its armies, its churches, its heresies. They come in every condition: peasant and prince, zealot and skeptic, saint and knife.</p>
-        <p>A human can pass anywhere without remark. In a world where difference draws suspicion, that invisibility is worth more than it sounds.</p>
+      <div class="primer-frame">
+        <p>Before the light, there was <strong>Silence</strong>, the age of darkness and despair. A savage age, marked by chaos and disorder, and civilization lay barren and bare. False gods reigned, we sacrificed our blood and souls to them, and were left in dirt and mud, no light to warm our hearts.</p>
+        <p>A light whispered in the dark and silent. Yet so quiet, our torn hearts could not hear, but for one that wasn't broken.</p>
+        <p>From the dark rose our savior, our Lady Lucienne, herald of Light, and turned whispers into shouts and cries for us to listen. She broke the silence and unveiled the false gods' lies. Their dark reign should end, and in their place the One True Light would shine.</p>
+        <p>And thus dawned the age of light. Where there was dirt now orchards flower, cities sprawl, and where there was chaos, our Empire rose to protect what we have nurtured.</p>
+        <p>Still, the dark prevails. Through witches' whispers, the false gods plot and scheme to douse the light that blinds them. Goblins cross the marches as their faithful servants to announce our desolation.</p>
+        <p class="prayer">Oh Lady Lucienne, deliver us from evil. Keep with us the one true light, so we may illuminate the dark that lingers.</p>
       </div>
-      <div class="ancestry">
-        <h4>Dwarf</h4>
-        <p>Dwarves are a short, broad, long-lived mountain folk, rarely seen and little known. They keep to their holds in the high peaks; those who walk among other peoples are usually traders or smiths, doing quiet business before vanishing again.</p>
-        <p>However, some Dwarves made their homes about the towns and cities of the Empire, looking for fortune beyond the mountain dark. They are known as patient, private, and slow to befriend.</p>
-      </div>
-      <div class="ancestry">
-        <h4>Fey-touched</h4>
-        <p class="reference">Reference: Half-Elf</p>
-        <p>Some people are born just slightly <em>wrong</em>: too fair, too still, ears that come to a point, eyes that catch the light oddly. They age slowly and live long — long enough to outlast everyone who remembers them arriving. The world calls them <strong>fey-touched</strong>, and not kindly.</p>
-        <p>Fey-touched are born to human parents, usually. Families occasionally whisper about an ancestor who "went into the woods for a year and came back changed." Whether that means anything, no one can say. There are old tales about a fair folk called "the elves" who may once have lived beyond the tree line — but tales are all they are, kept alive mostly within fey-touched family lines.</p>
-        <p>Whatever their truth, fey-touched live as outsiders: tolerated in towns, whispered about in villages, and occasionally turned out by frightened neighbors. Many grow thick skins. Many grow strange ones.</p>
-      </div>
-      <div class="ancestry">
-        <h4>Forest Gnome</h4>
-        <p>Gnomes are a small, spry, long-lived folk of the deep woods — the "little people" of grandmother's warnings, though the warnings only sometimes have it right. They are real, but rarely seen: they live past the tree line, avoid roads, and deal with outsiders cautiously, if at all.</p>
-        <p>A gnome among humans is a genuine oddity. Country folk treat them with the mix of awe and dread reserved for the fair folk. Gnomes are watchful, practical, and stubbornly alive, which in this world suggests someone or something is looking out for them.</p>
-      </div>
-      <div class="ancestry">
-        <h4>Greyborn (Goblin-Blooded)</h4>
-        <p class="reference">Reference: Half-Orc</p>
-        <p><strong>Greyborn</strong> are the green- or grey-skinned children of humans and goblin stock. Broad-shouldered, strong-jawed, hot of temper, they inherit their goblin side's hardiness and drive.</p>
-        <p>They are born and raised in the marches and borderlands, where the human realms grind against the Goblin people, and they belong fully to neither.</p>
-        <p>The world does not know what to do with them. The Church does not preach against them — but the Chancery keeps track of where they live, and when the goblin wars flare, neighbors remember whose face remind them of the enemy.</p>
-        <p>A Greyborn grows up knowing all of this. Some spend a lifetime trying to outrun their reputation, while others lean into the prejudice.</p>
-      </div>
-    </div>
-  </article>
+    </article>
+  </section>
 
-  <!-- ======================= PLAYER OPTIONS: CLASSES ======================= -->
+  <!-- ============ PAGE: THE CAMPAIGN ============ -->
+  <section class="page" id="campaign" data-title="The Campaign">
+    <article class="sheet">
+      <h2>The Campaign</h2>
+      <div class="rule"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 0 L10 5 L5 10 L0 5 Z" fill="currentColor"/></svg></div>
+
+      <p>The campaign world is a high medieval gothic fantasy setting.</p>
+      <p>Within the vast and powerful Valoran Empire, your journeys start in Hartmoor, a small barony within the Duchy of Arvannes, not too far from the border provinces of the Empire. Though not yet directly threatened by Goblin Attacks, the looming threat of war and violence sows unease across the people of the duchy, and Duchess <em>Éloane</em> of Arvannes must strive for Empire's support within the High Council of Aubescourt.</p>
+      <p>Meanwhile, another threat appears to be emerging in the Barony of Hartmoor: rumor speaks of a Covenant cult operating in the region, allegedly responsible for recent heresies and, quite possibly, for a string of murders that were recently committed.</p>
+      <p>This is your home, and your home is threatened by forces beyond your understanding. With the Goblin armies crossing the marches and false gods' servants looming over your community, the burden falls to you to stand fast and hold the line.</p>
+    </article>
+  </section>
+
+  <!-- ============ PAGE: POWERS THAT BE ============ -->
+  <section class="page" id="powers" data-title="Powers That Be">
+    <article class="sheet">
+      <h2>The Powers That Be</h2>
+      <div class="rule"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 0 L10 5 L5 10 L0 5 Z" fill="currentColor"/></svg></div>
+
+      <h3>The Valoran Empire</h3>
+      <p>Half the known continent, one crown. The Valoran Empire is the world's great success story: roads that run safe, walled towns, guilds and granaries, a fleet that rules its coastline. Its signature is <em>order</em> — the pax imperialis, a peace so real its people have forgotten it was ever otherwise. The imperial crown sits atop a feudal ladder of kings, dukes, and barons, all watched over by the great institutions of the High Council. Beyond the borders, the world is wilder: kingdoms where brigands roam and goblins still raid, and where the Empire's peace ends, its self-image begins.</p>
+
+      <h3>The Goblin Tribes</h3>
+      <p>Not bandits, not beasts — a people. The goblin tribes have sprawled across the Weald, an unmapped region beyond the marches, since before the Empire, kept survivable for centuries only by their endless feuds with one another. Now the tribes are uniting under a shaman-prophet's banner, settling the marches, and marching to war. Servants of the old gods, they do not come to conquer. They come to end the world of man.</p>
+
+      <h3>The Dawnward</h3>
+      <p>The Church of the One True Light, founded by the Lady Lucienne herself three centuries ago. It is the soul of the Empire: crowns the emperor, blesses the harvest, tends the poor through its Almoners — and hunts heresy through its Inquisition, for within the Empire the old faith is not only sin, but crime. Its priests carry the Divine, the only sanctioned magic in the world of man. For most folk, the Dawnward <em>is</em> goodness — and most of its faithful genuinely are.</p>
+
+      <h3>The Covenant</h3>
+      <p>The old faith — the pantheon that reigned during "the Silence". Within the Empire, its practice is outlawed and its name is a curse: witchcraft, devil worship, blood sacrifice. Yet, the old faith has survived: Household rites, oaths, seasonal feasts, and, in some communities, small covenants and sects are secretly practising the old rites where the Dawnward's eye can't reach.</p>
+    </article>
+  </section>
+
+  <!-- ============ PAGE: HOW TO PLAY ============ -->
+  <section class="page" id="howto" data-title="How to Play">
+    <article class="sheet">
+      <h2>How to Play This World</h2>
+      <div class="rule"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 0 L10 5 L5 10 L0 5 Z" fill="currentColor"/></svg></div>
+
+      <div class="lead">
+        <p><strong>Faith is everywhere.</strong> Even the skeptic swears by the Dawnward when the wolves are at the door. Choose your relationship to it: devout, dutiful, doubting, or daring — but have one.</p>
+        <p><strong>Magic is not casual.</strong> Miracles belong to the Church; everything else is a crime or a secret. Access is limited from the get go, and more often than not, magic comes as a threat rather than a savior.</p>
+        <p><strong>The world is small and dark.</strong> It's as much grimdark as dark fantasy. It's dangerous and unforgiving; behind each smile might loom a hidden knife.</p>
+      </div>
+
+      <div class="divider"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 0 L12 6 L6 12 L0 6 Z" fill="currentColor"/></svg></div>
+
+      <h2 style="margin-top:0">Emphasis</h2>
+      <div class="rule"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 0 L10 5 L5 10 L0 5 Z" fill="currentColor"/></svg></div>
+
+      <div class="emphasis">
+        <div class="row"><span class="name">Mystery &amp; Investigation</span><span class="pips">●●●<span class="off">●</span></span><span class="desc">Clues, interrogations, archives, secrets that have been waiting a long time</span></div>
+        <div class="row"><span class="name">Roleplay &amp; Drama</span><span class="pips">●●●●</span><span class="desc">Belief under pressure: what your characters trust, and what it takes to break that trust</span></div>
+        <div class="row"><span class="name">Combat</span><span class="pips">●●●<span class="off">●</span></span><span class="desc">Set-piece battles and desperate last stands, earned by the story</span></div>
+        <div class="row"><span class="name">Exploration</span><span class="pips">●●<span class="off">●●</span></span><span class="desc">Ruins, old roads, the far side of the tree line — journeys that carry weight</span></div>
+        <div class="row"><span class="name">Politics &amp; Intrigue</span><span class="pips">●●<span class="off">●●</span></span><span class="desc">Thrones and councils in the background, close enough to touch if you dare</span></div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ============ PAGE: ANCESTRIES ============ -->
+  <section class="page" id="ancestries" data-title="Ancestries">
+    <article class="sheet">
+      <p class="eyebrow">Player Options</p>
+      <h2>Ancestries</h2>
+      <div class="rule"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 0 L10 5 L5 10 L0 5 Z" fill="currentColor"/></svg></div>
+
+      <p>The population of the realms of this world is mostly human. Most folk in the countryside live and die never meeting anyone who is not. Those of other blood are few, scattered, and never quite trusted. The following peoples are open to players.</p>
+
+      <div class="ancestries">
+        <div class="ancestry">
+          <h4>Human</h4>
+          <p>Humans are the people of the world — its villages, its armies, its churches, its heresies. They come in every condition: peasant and prince, zealot and skeptic, saint and knife.</p>
+          <p>A human can pass anywhere without remark. In a world where difference draws suspicion, that invisibility is worth more than it sounds.</p>
+        </div>
+        <div class="ancestry">
+          <h4>Dwarf</h4>
+          <p>Dwarves are a short, broad, long-lived mountain folk, rarely seen and little known. They keep to their holds in the high peaks; those who walk among other peoples are usually traders or smiths, doing quiet business before vanishing again.</p>
+          <p>However, some Dwarves made their homes about the towns and cities of the Empire, looking for fortune beyond the mountain dark. They are known as patient, private, and slow to befriend.</p>
+        </div>
+        <div class="ancestry">
+          <h4>Fey-touched</h4>
+          <p class="reference">Reference: Half-Elf</p>
+          <p>Some people are born just slightly <em>wrong</em>: too fair, too still, ears that come to a point, eyes that catch the light oddly. They age slowly and live long — long enough to outlast everyone who remembers them arriving. The world calls them <strong>fey-touched</strong>, and not kindly.</p>
+          <p>Fey-touched are born to human parents, usually. Families occasionally whisper about an ancestor who "went into the woods for a year and came back changed." Whether that means anything, no one can say. There are old tales about a fair folk called "the elves" who may once have lived beyond the tree line — but tales are all they are, kept alive mostly within fey-touched family lines.</p>
+          <p>Whatever their truth, fey-touched live as outsiders: tolerated in towns, whispered about in villages, and occasionally turned out by frightened neighbors. Many grow thick skins. Many grow strange ones.</p>
+        </div>
+        <div class="ancestry">
+          <h4>Forest Gnome</h4>
+          <p>Gnomes are a small, spry, long-lived folk of the deep woods — the "little people" of grandmother's warnings, though the warnings only sometimes have it right. They are real, but rarely seen: they live past the tree line, avoid roads, and deal with outsiders cautiously, if at all.</p>
+          <p>A gnome among humans is a genuine oddity. Country folk treat them with the mix of awe and dread reserved for the fair folk. Gnomes are watchful, practical, and stubbornly alive, which in this world suggests someone or something is looking out for them.</p>
+        </div>
+        <div class="ancestry">
+          <h4>Greyborn (Goblin-Blooded)</h4>
+          <p class="reference">Reference: Half-Orc</p>
+          <p><strong>Greyborn</strong> are the green- or grey-skinned children of humans and goblin stock. Broad-shouldered, strong-jawed, hot of temper, they inherit their goblin side's hardiness and drive.</p>
+          <p>They are born and raised in the marches and borderlands, where the human realms grind against the Goblin people, and they belong fully to neither.</p>
+          <p>The world does not know what to do with them. The Church does not preach against them — but the Chancery keeps track of where they live, and when the goblin wars flare, neighbors remember whose face remind them of the enemy.</p>
+          <p>A Greyborn grows up knowing all of this. Some spend a lifetime trying to outrun their reputation, while others lean into the prejudice.</p>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ============ PAGE: CLASSES (PLACEHOLDER) ============ -->
+  <section class="page" id="classes" data-title="Classes" data-soon="true">
+    <article class="sheet">
+      <p class="eyebrow">Player Options</p>
+      <h2>Classes</h2>
+      <div class="rule"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 0 L10 5 L5 10 L0 5 Z" fill="currentColor"/></svg></div>
+
+      <p class="opening-quote">The callings of this world are still being written.</p>
+      <p style="text-align:center; color: var(--ink-faint); font-style: italic;">They will be revealed here when the time comes.</p>
+    </article>
+  </section>
 
 </main>
+
+<!-- ============ PAGE TURNER ============ -->
+<div class="turner" id="turner">
+  <button id="prev" aria-label="Previous page">‹ Prev</button>
+  <div class="dots" id="dots"></div>
+  <button id="next" aria-label="Next page">Next ›</button>
+</div>
 
 <footer>
   Deliver Us from Evil
   <span class="small">Stand Fast — Hold the Line</span>
 </footer>
+
+<script>
+(function () {
+  var pages = Array.prototype.slice.call(document.querySelectorAll(".page"));
+  var tabsBox = document.getElementById("tabs");
+  var dotsBox = document.getElementById("dots");
+  var prevBtn = document.getElementById("prev");
+  var nextBtn = document.getElementById("next");
+  var current = 0;
+
+  pages.forEach(function (page, i) {
+    var title = page.getAttribute("data-title") || ("Page " + (i + 1));
+    var soon = page.getAttribute("data-soon") === "true";
+
+    var tab = document.createElement("button");
+    tab.className = "tab" + (soon ? " soon" : "") + (i === 0 ? " active" : "");
+    tab.textContent = title;
+    tab.addEventListener("click", function () { go(i); });
+    tabsBox.appendChild(tab);
+
+    var dot = document.createElement("span");
+    dot.className = "dot" + (i === 0 ? " active" : "");
+    dot.setAttribute("role", "button");
+    dot.setAttribute("aria-label", title);
+    dot.addEventListener("click", function () { go(i); });
+    dotsBox.appendChild(dot);
+  });
+
+  function go(i) {
+    if (i < 0 || i >= pages.length || i === current) return;
+    pages[current].classList.remove("active");
+    tabsBox.children[current].classList.remove("active");
+    dotsBox.children[current].classList.remove("active");
+    current = i;
+    pages[current].classList.add("active");
+    tabsBox.children[current].classList.add("active");
+    dotsBox.children[current].classList.add("active");
+    var activeTab = tabsBox.children[current];
+    if (activeTab.scrollIntoView) activeTab.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    update();
+  }
+
+  function update() {
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === pages.length - 1;
+  }
+
+  prevBtn.addEventListener("click", function () { go(current - 1); });
+  nextBtn.addEventListener("click", function () { go(current + 1); });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowRight") go(current + 1);
+    if (e.key === "ArrowLeft") go(current - 1);
+  });
+
+  /* swipe */
+  var startX = null, startY = null;
+  document.addEventListener("touchstart", function (e) {
+    if (e.touches.length !== 1) { startX = null; return; }
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+  }, { passive: true });
+  document.addEventListener("touchend", function (e) {
+    if (startX === null) return;
+    var t = e.changedTouches[0];
+    var dx = t.clientX - startX;
+    var dy = t.clientY - startY;
+    startX = null;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      if (dx < 0) go(current + 1); else go(current - 1);
+    }
+  }, { passive: true });
+
+  update();
+})();
+</script>
 
 </body>
 </html>
