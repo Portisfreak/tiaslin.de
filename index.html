@@ -445,8 +445,8 @@
 <!-- ============ PAGE: CONCEPT WORK ============ -->
   <section class="page" id="concept" data-title="Concept Work">
     <article class="sheet">
-      <p class="eyebrow">Behind the Curtain</p>
-      <h2>Concept Work</h2>
+      <p class="eyebrow">Concept Work</p>
+      <h2>Redesigning the Magic System</h2>
       <p class="subtitle">Working Document · Work in Progress</p>
       <div class="rule"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 0 L10 5 L5 10 L0 5 Z" fill="currentColor"/></svg></div>
 
@@ -589,7 +589,7 @@
     dotsBox.appendChild(dot);
   });
 
-  function go(i) {
+  function go(i, skipHash) {
     if (i < 0 || i >= pages.length || i === current) return;
     pages[current].classList.remove("active");
     tabsBox.children[current].classList.remove("active");
@@ -601,8 +601,28 @@
     var activeTab = tabsBox.children[current];
     if (activeTab.scrollIntoView) activeTab.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
     window.scrollTo({ top: 0, behavior: "smooth" });
+    if (!skipHash && history.replaceState) {
+      history.replaceState(null, "", "#" + pages[current].id);
+    }
     update();
   }
+
+  /* deep links: open the page named in the URL hash (e.g. #concept) */
+  function indexFromHash() {
+    var id = decodeURIComponent(window.location.hash.replace(/^#/, "")).toLowerCase();
+    for (var j = 0; j < pages.length; j++) {
+      if (pages[j].id.toLowerCase() === id) return j;
+    }
+    return -1;
+  }
+  (function openFromHash() {
+    var idx = indexFromHash();
+    if (idx > 0) go(idx, true);
+  })();
+  window.addEventListener("hashchange", function () {
+    var idx = indexFromHash();
+    if (idx >= 0 && idx !== current) go(idx, true);
+  });
 
   function update() {
     prevBtn.disabled = current === 0;
