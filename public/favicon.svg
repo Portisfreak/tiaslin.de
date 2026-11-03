@@ -13,9 +13,6 @@
 <polygon points="235.1,226.9 217.7,194.8 225.1,230.6" fill="#c19a5b"/>
 <polygon points="206.1,242.6 149.9,193.9 198.6,250.1" fill="#c19a5b"/>
 <polygon points="186.6,269.1 150.8,261.7 182.9,279.1" fill="#c19a5b"/>
-<polygon points="187.0,170.0 200.0,157.0 213.0,170.0 200.0,183.0" fill="#c19a5b" opacity="0.95"/>
-<polygon points="303.0,120.0 312.0,111.0 321.0,120.0 312.0,129.0" fill="#c19a5b" opacity="0.6"/>
-<polygon points="232.0,88.0 238.0,82.0 244.0,88.0 238.0,94.0" fill="#c19a5b" opacity="0.35"/>
 <polygon points="102.0,256.0 256.0,36.0 410.0,256.0 256.0,476.0" fill="none" stroke="#a67c3d" stroke-width="6"/>
 <polygon points="120.0,256.0 256.0,54.0 392.0,256.0 256.0,458.0" fill="none" stroke="#a67c3d" stroke-width="1.5" opacity="0.55"/>
 </g></svg>
