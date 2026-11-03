@@ -1,0 +1,82 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+  entry: {
+    id: string;
+    data: {
+      title: string;
+      eyebrow?: string;
+      subtitle?: string;
+      order: number;
+      heading: 'h1' | 'h2';
+    };
+  };
+  body: string;
+  pages: Array<{ id: string; data: { title: string; order: number } }>;
+}
+
+const { entry, body, pages } = Astro.props;
+const sorted = [...pages].sort((a, b) => a.data.order - b.data.order);
+const index = sorted.findIndex((p) => p.id === entry.id);
+const prev = index > 0 ? sorted[index - 1] : null;
+const next = index < sorted.length - 1 ? sorted[index + 1] : null;
+const tabLabel = (p) => (p.data.nav ?? p.data.title).replace(/<[^>]*>/g, '');
+const diamond = `<svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 0 L10 5 L5 10 L0 5 Z" fill="currentColor"/></svg>`;
+const bigDiamond = `<svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 0 L12 6 L6 12 L0 6 Z" fill="currentColor"/></svg>`;
+const url = (id: string) => `/${id}/`;
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{entry.data.title.replace(/<[^>]*>/g, '')} — Deliver Us from Evil</title>
+<meta property="og:title" content="Deliver us from Evil" />
+<meta property="og:description" content="A Dark Fantasy RPG campaign" />
+<meta property="og:image" content="https://tiaslin.de/og-image.png" />
+</head>
+<body>
+
+<!-- ============ CHAPTER BAR ============ -->
+<nav class="chapters" id="chapters">
+  <p class="brand">Deliver Us from Evil · A Dark Fantasy Campaign</p>
+  <div class="tabs" id="tabs">
+    {sorted.map((p) => (
+      <a class={`tab${p.id === entry.id ? ' active' : ''}`} href={url(p.id)}>{tabLabel(p)}</a>
+    ))}
+  </div>
+</nav>
+
+<main>
+  <div class="page">
+    <article class="sheet">
+      {entry.data.eyebrow && <p class="eyebrow">{entry.data.eyebrow}</p>}
+      {entry.data.heading === 'h1'
+        ? <h1 set:html={entry.data.title} />
+        : <h2 set:html={entry.data.title} />}
+      {entry.data.subtitle && <p class="subtitle">{entry.data.subtitle}</p>}
+      <div class="rule" set:html={diamond} />
+      <slot />
+    </article>
+  </div>
+</main>
+
+<!-- ============ PAGE TURNER ============ -->
+<div class="turner" id="turner">
+  <a class={prev ? '' : 'disabled'} href={prev ? url(prev.id) : '#'} aria-label="Previous page">‹ Prev</a>
+  <div class="dots" id="dots">
+    {sorted.map((p) => (
+      <a class={`dot${p.id === entry.id ? ' active' : ''}`} href={url(p.id)} aria-label={tabLabel(p)}></a>
+    ))}
+  </div>
+  <a class={next ? '' : 'disabled'} href={next ? url(next.id) : '#'} aria-label="Next page">Next ›</a>
+</div>
+
+<footer>
+  Deliver Us from Evil
+  <span class="small">Stand Fast — Hold the Line</span>
+</footer>
+
+</body>
+</html>
