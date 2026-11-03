@@ -19,12 +19,11 @@
   --display: "Cinzel", "Trajan Pro", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-/* scroll-behavior: smooth removed — native wheel scrolling */
+html { scroll-behavior: smooth; }
 body {
   font-family: var(--serif);
   background:
-    radial-gradient(ellipse 80% 45% at 50% 0%, #201710 0%, #120d08 60%, #0d0a07 100%) top center / 100% 900px no-repeat,
-    #0d0a07;
+    radial-gradient(ellipse 80% 45% at 50% 0%, #201710 0%, #120d08 60%, #0d0a07 100%) fixed;
   color: var(--ink);
   line-height: 1.65;
   font-size: 17px;
@@ -32,15 +31,12 @@ body {
 }
 ::selection { background: #6b2320; color: #e8dcc0; }
 
-/* night background — a plain scrolling gradient, zero compositing cost */
-/* (the glow sits at the top of each page and scrolls with it) */
-
 /* ---------- chapter bar ---------- */
 .chapters {
   position: sticky; top: 0; z-index: 20;
   background: linear-gradient(180deg, rgba(13,10,7,.97), rgba(13,10,7,.88));
   border-bottom: 1px solid rgba(166, 124, 61, .55);
-  box-shadow: 0 4px 12px rgba(0,0,0,.45);
+  box-shadow: 0 6px 24px rgba(0,0,0,.55);
   padding: 12px 16px 10px;
   text-align: center;
 }
@@ -86,7 +82,7 @@ main { max-width: 860px; margin: 0 auto; padding: 40px 20px 30px; }
     radial-gradient(ellipse 120% 20% at 50% 0%, rgba(255,250,235,.55), transparent 60%),
     var(--parch);
   border: 1px solid var(--parch-edge);
-  box-shadow: 0 10px 24px rgba(0,0,0,.5);
+  box-shadow: 0 14px 40px rgba(0,0,0,.55), inset 0 0 60px rgba(120,95,55,.14);
   padding: clamp(28px, 5vw, 56px) clamp(22px, 5.5vw, 64px);
   margin: 0 auto 40px;
   position: relative;
