@@ -92,7 +92,7 @@ main { max-width: 860px; margin: 0 auto; padding: 40px 20px 30px; }
     radial-gradient(ellipse 120% 20% at 50% 0%, rgba(255,250,235,.55), transparent 60%),
     var(--parch);
   border: 1px solid var(--parch-edge);
-  box-shadow: 0 14px 40px rgba(0,0,0,.55), inset 0 0 60px rgba(120,95,55,.14);
+  box-shadow: 0 10px 24px rgba(0,0,0,.5);
   padding: clamp(28px, 5vw, 56px) clamp(22px, 5.5vw, 64px);
   margin: 0 auto 40px;
   position: relative;
@@ -101,6 +101,12 @@ main { max-width: 860px; margin: 0 auto; padding: 40px 20px 30px; }
   content: "";
   position: absolute; inset: 10px;
   border: 1px solid rgba(166, 124, 61, .5);
+  pointer-events: none;
+}
+.sheet::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 90% 85% at 50% 50%, transparent 55%, rgba(120,95,55,.14) 100%);
   pointer-events: none;
 }
 .sheet > * { position: relative; }
