@@ -7,6 +7,6 @@ export default defineConfig({
   build: { inlineStylesheets: 'always' },
   prefetch: {
     prefetchAll: true,
-    defaultStrategy: 'hover',
+    defaultStrategy: 'tap',
   },
 });
