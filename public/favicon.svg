@@ -1,5 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" fill="#0d0a07"/>
-  <path d="M16 4 L28 16 L16 28 L4 16 Z" fill="none" stroke="#a67c3d" stroke-width="2"/>
-  <path d="M16 10 L22 16 L16 22 L10 16 Z" fill="#c19a5b"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<rect width="512" height="512" fill="#0d0a07"/>
+<g transform="translate(256 268) scale(0.92) translate(-256 -256)">
+<defs><clipPath id="loz"><polygon points="108.0,256.0 256.0,42.0 404.0,256.0 256.0,470.0"/></clipPath></defs>
+<polygon points="108.0,256.0 256.0,42.0 404.0,256.0 256.0,470.0" fill="#120d08"/>
+<rect x="0" y="300.0" width="512" height="512" fill="#0a0705" clip-path="url(#loz)"/>
+<rect x="0" y="296.5" width="512" height="7" fill="#a67c3d" clip-path="url(#loz)"/>
+<path d="M 192.0 300.0 A 64.0 64.0 0 0 1 320.0 300.0 Z" fill="#c19a5b" clip-path="url(#loz)"/>
+<polygon points="329.1,279.1 361.2,261.7 325.4,269.1" fill="#c19a5b"/>
+<polygon points="313.4,250.1 362.1,193.9 305.9,242.6" fill="#c19a5b"/>
+<polygon points="286.9,230.6 294.3,194.8 276.9,226.9" fill="#c19a5b"/>
+<polygon points="261.3,224.2 256.0,150.0 250.7,224.2" fill="#c19a5b"/>
+<polygon points="235.1,226.9 217.7,194.8 225.1,230.6" fill="#c19a5b"/>
+<polygon points="206.1,242.6 149.9,193.9 198.6,250.1" fill="#c19a5b"/>
+<polygon points="186.6,269.1 150.8,261.7 182.9,279.1" fill="#c19a5b"/>
+<polygon points="187.0,170.0 200.0,157.0 213.0,170.0 200.0,183.0" fill="#c19a5b" opacity="0.95"/>
+<polygon points="303.0,120.0 312.0,111.0 321.0,120.0 312.0,129.0" fill="#c19a5b" opacity="0.6"/>
+<polygon points="232.0,88.0 238.0,82.0 244.0,88.0 238.0,94.0" fill="#c19a5b" opacity="0.35"/>
+<polygon points="102.0,256.0 256.0,36.0 410.0,256.0 256.0,476.0" fill="none" stroke="#a67c3d" stroke-width="6"/>
+<polygon points="120.0,256.0 256.0,54.0 392.0,256.0 256.0,458.0" fill="none" stroke="#a67c3d" stroke-width="1.5" opacity="0.55"/>
+</g></svg>
