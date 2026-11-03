@@ -44,7 +44,7 @@ const diamond = `<svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 0 L
   <p class="brand">Deliver Us from Evil · A Dark Fantasy Campaign</p>
   <div class="tabs" id="tabs">
     {sorted.map((p) => (
-      <a data-astro-prefetch class={`tab${p.id === entry.id ? ' active' : ''}`} href={url(p.id)}>{tabLabel(p)}</a>
+      <a class={`tab${p.id === entry.id ? ' active' : ''}`} href={url(p.id)}>{tabLabel(p)}</a>
     ))}
   </div>
 </nav>
@@ -65,13 +65,13 @@ const diamond = `<svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 0 L
 
 <!-- ============ PAGE TURNER ============ -->
 <div class="turner" id="turner">
-  <a data-astro-prefetch class={prev ? '' : 'disabled'} href={prev ? url(prev.id) : '#'} aria-label="Previous page">‹ Prev</a>
+  <a class={prev ? '' : 'disabled'} href={prev ? url(prev.id) : '#'} aria-label="Previous page">‹ Prev</a>
   <div class="dots" id="dots">
     {sorted.map((p) => (
-      <a data-astro-prefetch class={`dot${p.id === entry.id ? ' active' : ''}`} href={url(p.id)} aria-label={tabLabel(p)}></a>
+      <a class={`dot${p.id === entry.id ? ' active' : ''}`} href={url(p.id)} aria-label={tabLabel(p)}></a>
     ))}
   </div>
-  <a data-astro-prefetch class={next ? '' : 'disabled'} href={next ? url(next.id) : '#'} aria-label="Next page">Next ›</a>
+  <a class={next ? '' : 'disabled'} href={next ? url(next.id) : '#'} aria-label="Next page">Next ›</a>
 </div>
 
 <footer>
