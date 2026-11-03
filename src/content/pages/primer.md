@@ -1,5 +1,6 @@
 ---
 title: "Deliver Us<br/>from Evil"
+nav: "Primer"
 eyebrow: "A Dark Fantasy Campaign"
 order: 1
 heading: h1
