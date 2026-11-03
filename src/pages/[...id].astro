@@ -1,0 +1,24 @@
+---
+import { getCollection, render } from 'astro:content';
+import Sheet from '../layouts/Sheet.astro';
+
+export async function getStaticPaths() {
+  const pages = (await getCollection('pages')).sort(
+    (a, b) => a.data.order - b.data.order
+  );
+  // The first page (by order) becomes the homepage at "/"
+  return [
+    { params: { id: undefined }, props: { entry: pages[0], pages } },
+    ...pages.slice(1).map((entry) => ({
+      params: { id: entry.id },
+      props: { entry, pages },
+    })),
+  ];
+}
+
+const { entry, pages } = Astro.props;
+const { Content } = await render(entry);
+---
+<Sheet entry={entry} pages={pages}>
+  <Content />
+</Sheet>
