@@ -22,7 +22,9 @@
 /* scroll-behavior: smooth removed — native wheel scrolling */
 body {
   font-family: var(--serif);
-  background: #0d0a07;
+  background:
+    radial-gradient(ellipse 80% 45% at 50% 0%, #201710 0%, #120d08 60%, #0d0a07 100%) top center / 100% 900px no-repeat,
+    #0d0a07;
   color: var(--ink);
   line-height: 1.65;
   font-size: 17px;
@@ -30,16 +32,8 @@ body {
 }
 ::selection { background: #6b2320; color: #e8dcc0; }
 
-/* fixed gradient layer — same look as background-attachment: fixed,
-   but composited by the GPU instead of repainted every scroll frame */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  transform: translateZ(0); /* force own compositor layer */
-  background: radial-gradient(ellipse 80% 45% at 50% 0%, #201710 0%, #120d08 60%, #0d0a07 100%);
-}
+/* night background — a plain scrolling gradient, zero compositing cost */
+/* (the glow sits at the top of each page and scrolls with it) */
 
 /* ---------- chapter bar ---------- */
 .chapters {
@@ -101,12 +95,6 @@ main { max-width: 860px; margin: 0 auto; padding: 40px 20px 30px; }
   content: "";
   position: absolute; inset: 10px;
   border: 1px solid rgba(166, 124, 61, .5);
-  pointer-events: none;
-}
-.sheet::after {
-  content: "";
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse 90% 85% at 50% 50%, transparent 55%, rgba(120,95,55,.14) 100%);
   pointer-events: none;
 }
 .sheet > * { position: relative; }
