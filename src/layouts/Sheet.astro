@@ -6,25 +6,25 @@ export interface Props {
     id: string;
     data: {
       title: string;
+      nav?: string;
       eyebrow?: string;
       subtitle?: string;
       order: number;
       heading: 'h1' | 'h2';
     };
   };
-  body: string;
-  pages: Array<{ id: string; data: { title: string; order: number } }>;
+  pages: Array<{ id: string; data: { title: string; nav?: string; order: number } }>;
 }
 
-const { entry, body, pages } = Astro.props;
+const { entry, pages } = Astro.props;
 const sorted = [...pages].sort((a, b) => a.data.order - b.data.order);
+const firstId = sorted[0]?.id;
+const url = (id: string) => (id === firstId ? '/' : `/${id}/`);
 const index = sorted.findIndex((p) => p.id === entry.id);
 const prev = index > 0 ? sorted[index - 1] : null;
 const next = index < sorted.length - 1 ? sorted[index + 1] : null;
 const tabLabel = (p) => (p.data.nav ?? p.data.title).replace(/<[^>]*>/g, '');
 const diamond = `<svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 0 L10 5 L5 10 L0 5 Z" fill="currentColor"/></svg>`;
-const bigDiamond = `<svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 0 L12 6 L6 12 L0 6 Z" fill="currentColor"/></svg>`;
-const url = (id: string) => `/${id}/`;
 ---
 <!doctype html>
 <html lang="en">
