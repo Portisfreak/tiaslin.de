@@ -1,0 +1,6 @@
+---
+import { redirect } from 'astro';
+import { getCollection } from 'astro:content';
+
+const pages = (await getCollection('pages')).sort((a, b) => a.data.order - b.data.order);
+return redirect(`/${pages[0].id}/`, 302);
