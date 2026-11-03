@@ -19,17 +19,26 @@
   --display: "Cinzel", "Trajan Pro", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+/* scroll-behavior: smooth removed — native wheel scrolling */
 body {
   font-family: var(--serif);
-  background:
-    radial-gradient(ellipse 80% 45% at 50% 0%, #201710 0%, #120d08 60%, #0d0a07 100%) fixed;
+  background: #0d0a07;
   color: var(--ink);
   line-height: 1.65;
   font-size: 17px;
   min-height: 100vh;
 }
 ::selection { background: #6b2320; color: #e8dcc0; }
+
+/* fixed gradient layer — same look as background-attachment: fixed,
+   but composited by the GPU instead of repainted every scroll frame */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(ellipse 80% 45% at 50% 0%, #201710 0%, #120d08 60%, #0d0a07 100%);
+}
 
 /* ---------- chapter bar ---------- */
 .chapters {
