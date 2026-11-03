@@ -5,8 +5,4 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   site: 'https://tiaslin.de',
   build: { inlineStylesheets: 'always' },
-  prefetch: {
-    prefetchAll: true,
-    defaultStrategy: 'tap',
-  },
 });
